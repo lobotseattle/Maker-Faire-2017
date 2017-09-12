@@ -5,6 +5,7 @@ from collections import OrderedDict, namedtuple
 from operator import attrgetter
 import winsound
 import ttgamemodule as gm
+import sys
 
 
 import numpy as np
@@ -671,7 +672,13 @@ def main():
     global gameInProgress
     global waitingForUserMove
     global startGame
-    gm.initTicTacToeGame()
+	global gameDifficultyLevel
+	gameDifficultyLevel = "H" #H for hard. This is the default
+	for arg in sys.argv[1:]:
+		print arg
+        gameDifficultyLevel = "E"
+		break
+    gm.initTicTacToeGame(gameDifficultyLevel)
 
     while True:
         gameStart()
