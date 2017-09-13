@@ -672,12 +672,12 @@ def main():
     global gameInProgress
     global waitingForUserMove
     global startGame
-	global gameDifficultyLevel
-	gameDifficultyLevel = "H" #H for hard. This is the default
-	for arg in sys.argv[1:]:
-		print arg
+    global gameDifficultyLevel
+    gameDifficultyLevel = "H" #H for hard. This is the default
+    for arg in sys.argv[1:]:
+        print(arg)
         gameDifficultyLevel = "E"
-		break
+        break
     gm.initTicTacToeGame(gameDifficultyLevel)
 
     while True:

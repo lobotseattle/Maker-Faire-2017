@@ -207,7 +207,7 @@ def computerPlayAI(ticTacToeBoard, gameDifficultyLevel):
     if(move == -1):
     ## There is no winning move. Check for a blocking move.
         if(gameDifficultyLevel.lower() != "e"):
-			move=makeBlockingMoveIfPossible(ticTacToeBoard)
+            move=makeBlockingMoveIfPossible(ticTacToeBoard)
         if move == -1:
             move = makeCenterMoveIfPossible(ticTacToeBoard)
             if (move == -1):
@@ -391,14 +391,15 @@ ticTacToeBoard = []
 
 def initTicTacToeGame(gameDifficultyLevel):
     global ticTacToeBoard
-	global gameLevel = gameDifficultyLevel
+    global gameLevel
+    gameLevel = gameDifficultyLevel
     for i in range(0,9):
         cell = cellState(i,False,"Nobody")
         ticTacToeBoard.append((cell))
 
 def userMove(move):
     global ticTacToeBoard
-	global gameLevel
+    global gameLevel
     computerMove = -1
     if (move >=0 and move <= 8):
         ticTacToeBoard[move].takenByUser()
