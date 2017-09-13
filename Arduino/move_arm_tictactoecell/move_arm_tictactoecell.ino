@@ -34,7 +34,7 @@ int val = 0;
 int robotState =0;
 
 // the motor objects
-ArmMotor* m1 = NULL;        //abstractiob
+ArmMotor* m1 = NULL;        //abstraction
 ArmMotor* m2 = NULL;
 ArmMotor* m3 = NULL;
 //ArmMotor* m4 = NULL;
@@ -158,3 +158,141 @@ void loop(){
      }     
     }
   } 
+}
+// Get the angle movement needed for M1 to reach target cell position
+int GetTargetAngleForM1(targetcell)
+{
+  switch(targetCell)
+  {
+    case 0:
+      return 0;
+    case 1:
+       return 10;
+    case 2:
+       return 20;
+    case 3:
+       return 30;
+    case 4:
+       return 40;
+    case 5:
+       return 50;
+    case 6:
+       return 60;
+    case 7:
+       return 70;
+    case 8:
+       return 80;
+    case 9:
+       return 90;
+    default:
+      return 0;              
+  }
+}
+
+// Get the angle movement needed for M1 to reach target cell position
+int GetTargetAngleForM2(targetcell)
+{
+  switch(targetCell)
+  {
+    case 0:
+      return 0;
+    case 1:
+       return 10;
+    case 2:
+       return 20;
+    case 3:
+       return 30;
+    case 4:
+       return 40;
+    case 5:
+       return 50;
+    case 6:
+       return 60;
+    case 7:
+       return 70;
+    case 8:
+       return 80;
+    case 9:
+       return 90;
+    default:
+      return 0;              
+  }
+}
+
+// Get the angle movement needed for M1 to reach target cell position
+int GetTargetAngleForM3(targetcell)
+{
+  switch(targetCell)
+  {
+    case 0:
+      return 0;
+    case 1:
+       return 10;
+    case 2:
+       return 20;
+    case 3:
+       return 30;
+    case 4:
+       return 40;
+    case 5:
+       return 50;
+    case 6:
+       return 60;
+    case 7:
+       return 70;
+    case 8:
+       return 80;
+    case 9:
+       return 90;
+    default:
+      return 0;              
+  }
+}
+
+// Get the angle movement needed for M4 to reach target cell position
+int GetTargetAngleForM4(targetcell)
+{
+  switch(targetCell)
+  {
+    case 0:
+      return 0;
+    case 1:
+       return 10;
+    case 2:
+       return 20;
+    case 3:
+       return 30;
+    case 4:
+       return 40;
+    case 5:
+       return 50;
+    case 6:
+       return 60;
+    case 7:
+       return 70;
+    case 8:
+       return 80;
+    case 9:
+       return 90;
+    default:
+      return 0;              
+  }
+}
+
+// Get the angle movement needed for M4 to reach target cell position
+void MoveArmToTarget(targetcell)
+{
+  int angleM1 = GetTargetAngleForM1(targetcell);
+  int angleM2 = GetTargetAngleForM2(targetcell);
+  int angleM3 = GetTargetAngleForM3(targetcell);
+  int angleM4 = GetTargetAngleForM4(targetcell);
+  
+  m1->gotoTargetAngle(angleM1); //Raise (assuming you have already have the coin in the claw)
+  m2->gotoTargetAngle(angleM2); //Move the arm towards cell
+  m3->gotoTargetAngle(angleM3); //Bring the arm dowm
+  m4->gotoTargetAngle(angleM4); //Open claw (and drop the computer coin)
+  m1->gotoTargetAngle(-angleM3); //Raise arm
+  m2->gotoTargetAngle(-angleM2); // Move towards home
+  m3->gotoTargetAngle(-angleM1); // Lower arm to lock
+  m4->gotoTargetAngle(-angleM4); //Close claw hooking onto computer coin      
+}
