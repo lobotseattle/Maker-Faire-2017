@@ -4,8 +4,9 @@
 from collections import OrderedDict, namedtuple
 from operator import attrgetter
 import winsound
-import ttgamemodule as gm
 import sys
+
+import ttgamemodule as gm
 
 
 import numpy as np
@@ -52,6 +53,7 @@ ticTacToeGrid = []
 gameInProgress = True
 waitingForUserMove = False
 startGame = False
+gameDifficultyLevel = "H"
 playerMove = 0
 origImgForShow = 0
 borderImgForShow = 0
@@ -673,7 +675,6 @@ def main():
     global waitingForUserMove
     global startGame
     global gameDifficultyLevel
-    gameDifficultyLevel = "H" #H for hard. This is the default
     for arg in sys.argv[1:]:
         print(arg)
         gameDifficultyLevel = "E"

@@ -185,6 +185,7 @@ def getCameraImage():
         
         if(not rval):
             print("Failed to open webcam. Trying again...")
+            webcam = None
     
     return frame
 
@@ -410,7 +411,7 @@ def getTTTFrame(cells):
     y=0
     w=0
     h=0
-    margin = 15
+    margin = -30
     noOfCells = len (cells)
     if (noOfCells == 9):
         x=cells[0].x - margin
@@ -603,13 +604,17 @@ def sendPlayerMoveToGame(move):
 def makeRobotMove(move):
     global ser
     ret = 1
+    print("Computer move ",move)
+    
+    if (ser is None):
+        return ret
+
     if (not ser.isOpen()):
         ser.open()
+
     if (move <= 9 and move > 0 ):
-        print("Computer move ",move)
         tu1 = (move,"\n")
         printText = "{0:d}{1:s}".format(*tu1)
-        print("input text ", printText)
         a = bytes(printText,encoding="UTF-8")
         ser.write(a)
         time.sleep(5)
