@@ -54,10 +54,11 @@ def changeButtonColor(b,color):
 
 def callback1():
     global ticTacToeBoard
+    global gameLevel
     ticTacToeBoard[0].takenByUser()
     winStat = didUserWin(ticTacToeBoard)
     if not winStat:
-        computerPlayAI(ticTacToeBoard, gameDifficultyLevel)
+        computerPlayAI(ticTacToeBoard, gameLevel)
     else:
         declareWinner(ticTacToeBoard,"User")
 
@@ -65,7 +66,7 @@ def callback2():
     global ticTacToeBoard
     ticTacToeBoard[1].takenByUser()
     if not didUserWin(ticTacToeBoard):
-        computerPlayAI(ticTacToeBoard, gameDifficultyLevel)
+        computerPlayAI(ticTacToeBoard, gameLevel)
     else:
         declareWinner(ticTacToeBoard,"User")
 
@@ -74,7 +75,7 @@ def callback3():
     global ticTacToeBoard
     ticTacToeBoard[2].takenByUser()
     if not didUserWin(ticTacToeBoard):
-        computerPlayAI(ticTacToeBoard, gameDifficultyLevel)
+        computerPlayAI(ticTacToeBoard, gameLevel)
     else:
         declareWinner(ticTacToeBoard,"User")
 
@@ -83,7 +84,7 @@ def callback4():
     global ticTacToeBoard
     ticTacToeBoard[3].takenByUser()
     if not didUserWin(ticTacToeBoard):
-        computerPlayAI(ticTacToeBoard, gameDifficultyLevel)
+        computerPlayAI(ticTacToeBoard, gameLevel)
     else:
         declareWinner(ticTacToeBoard,"User")
 
@@ -91,7 +92,7 @@ def callback5():
     global ticTacToeBoard
     ticTacToeBoard[4].takenByUser()
     if not didUserWin(ticTacToeBoard):
-        computerPlayAI(ticTacToeBoard, gameDifficultyLevel)
+        computerPlayAI(ticTacToeBoard, gameLevel)
     else:
         declareWinner(ticTacToeBoard,"User")
 
@@ -100,7 +101,7 @@ def callback6():
     global ticTacToeBoard
     ticTacToeBoard[5].takenByUser()
     if not didUserWin(ticTacToeBoard):
-        computerPlayAI(ticTacToeBoard, gameDifficultyLevel)
+        computerPlayAI(ticTacToeBoard, gameLevel)
     else:
         declareWinner(ticTacToeBoard,"User")
 
@@ -109,7 +110,7 @@ def callback7():
     global ticTacToeBoard
     ticTacToeBoard[6].takenByUser()
     if not didUserWin(ticTacToeBoard):
-        computerPlayAI(ticTacToeBoard, gameDifficultyLevel)
+        computerPlayAI(ticTacToeBoard, gameLevel)
     else:
         declareWinner(ticTacToeBoard,"User")
 
@@ -118,7 +119,7 @@ def callback8():
     global ticTacToeBoard
     ticTacToeBoard[7].takenByUser()
     if not didUserWin(ticTacToeBoard):
-        computerPlayAI(ticTacToeBoard, gameDifficultyLevel)
+        computerPlayAI(ticTacToeBoard, gameLevel)
     else:
         declareWinner(ticTacToeBoard,"User")
 
@@ -126,7 +127,7 @@ def callback9():
     global ticTacToeBoard
     ticTacToeBoard[8].takenByUser()
     if not didUserWin(ticTacToeBoard):
-        computerPlayAI(ticTacToeBoard, gameDifficultyLevel)
+        computerPlayAI(ticTacToeBoard, gameLevel)
     else:
         declareWinner(ticTacToeBoard,"User")
 
@@ -201,12 +202,12 @@ def makeCenterMoveIfPossible(ticTacToeBoard):
         cell.takenByComputer()
     return centerMove
 
-def computerPlayAI(ticTacToeBoard, gameDifficultyLevel):
+def computerPlayAI(ticTacToeBoard, gameLevel):
     move = makeAWinningMoveIfPossible(ticTacToeBoard)
 
     if(move == -1):
     ## There is no winning move. Check for a blocking move.
-        if(gameDifficultyLevel.lower() != "e"):
+        if(gameLevel.lower() != "e"):
             move=makeBlockingMoveIfPossible(ticTacToeBoard)
         if move == -1:
             move = makeCenterMoveIfPossible(ticTacToeBoard)
@@ -388,6 +389,7 @@ def isThereACenterMove(ticTacToeBoard):
 
 #Main program strats here
 ticTacToeBoard = []
+gameLevel = "H"
 
 def initTicTacToeGame(gameDifficultyLevel):
     global ticTacToeBoard
@@ -405,7 +407,7 @@ def userMove(move):
         ticTacToeBoard[move].takenByUser()
         winStat = didUserWin(ticTacToeBoard)
         if not winStat:
-            computerMove, winStat = computerPlayAI(ticTacToeBoard, gameDifficultyLevel)
+            computerMove, winStat = computerPlayAI(ticTacToeBoard, gameLevel)
         else:
             declareWinner(ticTacToeBoard,"User")
 
