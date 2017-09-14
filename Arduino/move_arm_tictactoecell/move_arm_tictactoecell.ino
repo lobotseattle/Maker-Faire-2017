@@ -1,6 +1,8 @@
-char userInput;
-char userInputInt;
-int greenPin = 13;
+/*
+ * Credit: Adafruit Motor shield, Srikanth Ranganathan
+ * Calibrate_4_motors
+ * 
+ */
 #include <Wire.h>
 #include <Adafruit_MotorShield.h>
 #include "utility/Adafruit_MS_PWMServoDriver.h"
@@ -34,15 +36,16 @@ int val = 0;
 int robotState =0;
 
 // the motor objects
-ArmMotor* m1 = NULL;        //abstraction
+ArmMotor* m1 = NULL;        //abstractiob
 ArmMotor* m2 = NULL;
 ArmMotor* m3 = NULL;
-//ArmMotor* m4 = NULL;
+ArmMotor* m4 = NULL;
   
 void setup()
 {
   Serial.begin(9600);          
-  Serial.print("Adafruit Motorshield v2 - DC Motor test!");Serial.println();
+  Serial.print("Adafruit Motorshield v2 - DC Motor test!");
+  Serial.println();
   initializeMotors();
 }
 
@@ -52,31 +55,31 @@ void initializeMotors()
 { 
   m1 = new ArmMotor (AFMS.getMotor(m1Num),m1PotPin);
   m1->setSpeed(motorSpeed);
-  m1->calibratePotentiometer(594,90,491,68) ;
+  m1->calibratePotentiometer(543,90,475,70) ;
   m1->setMinAngle(60);
   m1->setMaxAngle(120);
   m1->printObject();
 
   m2 = new ArmMotor (AFMS.getMotor(m2Num), m2PotPin);
   m2->setSpeed(motorSpeed);
-  m2->calibratePotentiometer(449,0,291,90) ;
+  m2->calibratePotentiometer(1,0,550,90) ;
   m2->setMinAngle(-30);
   m2->setMaxAngle(120);
   m2->printObject();
+
   m3 = new ArmMotor (AFMS.getMotor(m3Num), m3PotPin);
   m3->setSpeed(motorSpeed);
-  m3->calibratePotentiometer(29,0,426,90) ;
+  m3->calibratePotentiometer(88,0,480,90) ;
   m3->setMinAngle(-15);
   m3->setMaxAngle(150);
   m3->printObject();
 
   m4 = new ArmMotor (AFMS.getMotor(m4Num), m4PotPin);
   m4->setSpeed(50);
-  m4->calibratePotentiometer(355,15,679,90) ;
+  m4->calibratePotentiometer(9,0,30,90) ;
   m4->setMinAngle(10);
   m4->setMaxAngle(80);
   m4->printObject();
-
   AFMS.begin();
 }
 
@@ -86,213 +89,72 @@ void loop(){
   {
      //String cell = Serial.readString();
      int cell = Serial.parseInt();
-     if (cell == 1))
+     if (cell == 1)
      {
-        m1->gotoTargetAngle(degree);
-        m2->gotoTargetAngle(degree);
-        m3->gotoTargetAngle(degree);
-        m4->gotoTargetAngle(degree);  
+        m1->gotoTargetAngle(117);
+        m3->gotoTargetAngle(-15);
+        m2->gotoTargetAngle(80);
      }
-     if (cell == 2))
+     if (cell == 2)
      {
-        m1->gotoTargetAngle(degree);
-        m2->gotoTargetAngle(degree);
-        m3->gotoTargetAngle(degree);
-        m4->gotoTargetAngle(degree);  
+        m1->gotoTargetAngle(115);
+        m3->gotoTargetAngle(15);
+        m2->gotoTargetAngle(60);
      }
-     if (cell == 3))
+     if (cell == 3)
      {
-        m1->gotoTargetAngle(degree);
-        m2->gotoTargetAngle(degree);
-        m3->gotoTargetAngle(degree);
-        m4->gotoTargetAngle(degree);  
+        m1->gotoTargetAngle(110);
+        m3->gotoTargetAngle(90);
+        m2->gotoTargetAngle(20);
      }
-     if (cell == 4))
+     if (cell == 4)
      {
-        m1->gotoTargetAngle(degree);
-        m2->gotoTargetAngle(degree);
-        m3->gotoTargetAngle(degree);
-        m4->gotoTargetAngle(degree);  
+        m1->gotoTargetAngle(95);
+        m3->gotoTargetAngle(0);
+        m2->gotoTargetAngle(70);
      }
-     if (cell == 5))
+     if (cell == 5)
      {
-        m1->gotoTargetAngle(degree);
-        m2->gotoTargetAngle(degree);
-        m3->gotoTargetAngle(degree);
-        m4->gotoTargetAngle(degree);  
+        m1->gotoTargetAngle(90);
+        m3->gotoTargetAngle(15);
+        m2->gotoTargetAngle(60);
      }     
-     if (cell == 6))
+     if (cell == 6)
      {
-        m1->gotoTargetAngle(degree);
-        m2->gotoTargetAngle(degree);
-        m3->gotoTargetAngle(degree);
-        m4->gotoTargetAngle(degree);  
+        m1->gotoTargetAngle(90);
+        m3->gotoTargetAngle(90);
+        m2->gotoTargetAngle(20);
      } 
-     if (cell == 7))
+     if (cell == 7)
      {
-        m1->gotoTargetAngle(degree);
-        m2->gotoTargetAngle(degree);
-        m3->gotoTargetAngle(degree);
-        m4->gotoTargetAngle(degree);  
+        m1->gotoTargetAngle(65);
+        m3->gotoTargetAngle(-20);
+        m2->gotoTargetAngle(90);
      }
-     if (cell == 8))
+     if (cell == 8)
      {
-        m1->gotoTargetAngle(degree);
-        m2->gotoTargetAngle(degree);
-        m3->gotoTargetAngle(degree);
-        m4->gotoTargetAngle(degree);  
+        m1->gotoTargetAngle(70);
+        m3->gotoTargetAngle(15);
+        m2->gotoTargetAngle(60);
      }
-     if (cell == 9))
+     if (cell == 9)
      {
-        m1->gotoTargetAngle(degree);
-        m2->gotoTargetAngle(degree);
-        m3->gotoTargetAngle(degree);
-        m4->gotoTargetAngle(degree);  
+        m1->gotoTargetAngle(75);
+        m3->gotoTargetAngle(90);
+        m2->gotoTargetAngle(20);
+     }          
+     if (cell >= 0 && cell < 10)
+     {
+      GoHome();
      }
-     if (cell == 0)) //GoHome
-     { 
-        m1->gotoTargetAngle(degree);
-        m2->gotoTargetAngle(degree);
-        m3->gotoTargetAngle(degree);
-        m4->gotoTargetAngle(degree);  
-     }     
     }
   } 
 }
-// Get the angle movement needed for M1 to reach target cell position
-int GetTargetAngleForM1(targetcell)
-{
-  switch(targetCell)
-  {
-    case 0:
-      return 0;
-    case 1:
-       return 10;
-    case 2:
-       return 20;
-    case 3:
-       return 30;
-    case 4:
-       return 40;
-    case 5:
-       return 50;
-    case 6:
-       return 60;
-    case 7:
-       return 70;
-    case 8:
-       return 80;
-    case 9:
-       return 90;
-    default:
-      return 0;              
-  }
-}
 
-// Get the angle movement needed for M1 to reach target cell position
-int GetTargetAngleForM2(targetcell)
+void GoHome()
 {
-  switch(targetCell)
-  {
-    case 0:
-      return 0;
-    case 1:
-       return 10;
-    case 2:
-       return 20;
-    case 3:
-       return 30;
-    case 4:
-       return 40;
-    case 5:
-       return 50;
-    case 6:
-       return 60;
-    case 7:
-       return 70;
-    case 8:
-       return 80;
-    case 9:
-       return 90;
-    default:
-      return 0;              
-  }
-}
-
-// Get the angle movement needed for M1 to reach target cell position
-int GetTargetAngleForM3(targetcell)
-{
-  switch(targetCell)
-  {
-    case 0:
-      return 0;
-    case 1:
-       return 10;
-    case 2:
-       return 20;
-    case 3:
-       return 30;
-    case 4:
-       return 40;
-    case 5:
-       return 50;
-    case 6:
-       return 60;
-    case 7:
-       return 70;
-    case 8:
-       return 80;
-    case 9:
-       return 90;
-    default:
-      return 0;              
-  }
-}
-
-// Get the angle movement needed for M4 to reach target cell position
-int GetTargetAngleForM4(targetcell)
-{
-  switch(targetCell)
-  {
-    case 0:
-      return 0;
-    case 1:
-       return 10;
-    case 2:
-       return 20;
-    case 3:
-       return 30;
-    case 4:
-       return 40;
-    case 5:
-       return 50;
-    case 6:
-       return 60;
-    case 7:
-       return 70;
-    case 8:
-       return 80;
-    case 9:
-       return 90;
-    default:
-      return 0;              
-  }
-}
-
-// Get the angle movement needed for M4 to reach target cell position
-void MoveArmToTarget(targetcell)
-{
-  int angleM1 = GetTargetAngleForM1(targetcell);
-  int angleM2 = GetTargetAngleForM2(targetcell);
-  int angleM3 = GetTargetAngleForM3(targetcell);
-  int angleM4 = GetTargetAngleForM4(targetcell);
-  
-  m1->gotoTargetAngle(angleM1); //Raise (assuming you have already have the coin in the claw)
-  m2->gotoTargetAngle(angleM2); //Move the arm towards cell
-  m3->gotoTargetAngle(angleM3); //Bring the arm dowm
-  m4->gotoTargetAngle(angleM4); //Open claw (and drop the computer coin)
-  m1->gotoTargetAngle(-angleM3); //Raise arm
-  m2->gotoTargetAngle(-angleM2); // Move towards home
-  m3->gotoTargetAngle(-angleM1); // Lower arm to lock
-  m4->gotoTargetAngle(-angleM4); //Close claw hooking onto computer coin      
+  m3->gotoTargetAngle(90);
+  m1->gotoTargetAngle(90);
+  m2->gotoTargetAngle(90);
+  m4->gotoTargetAngle(90);  
 }
