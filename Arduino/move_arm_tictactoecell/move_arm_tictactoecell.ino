@@ -76,7 +76,7 @@ void initializeMotors()
 
   m4 = new ArmMotor (AFMS.getMotor(m4Num), m4PotPin);
   m4->setSpeed(50);
-  m4->calibratePotentiometer(9,0,30,90) ;
+  m4->calibratePotentiometer(9,0,28,90) ;
   m4->setMinAngle(10);
   m4->setMaxAngle(80);
   m4->printObject();
@@ -89,6 +89,10 @@ void loop(){
   {
      //String cell = Serial.readString();
      int cell = Serial.parseInt();
+
+     
+     StartFromHome();
+     
      if (cell == 1)
      {
         m1->gotoTargetAngle(117);
@@ -97,21 +101,21 @@ void loop(){
      }
      if (cell == 2)
      {
-        m1->gotoTargetAngle(115);
+        m1->gotoTargetAngle(110);
         m3->gotoTargetAngle(15);
         m2->gotoTargetAngle(60);
      }
      if (cell == 3)
      {
-        m1->gotoTargetAngle(110);
+        m1->gotoTargetAngle(107);
         m3->gotoTargetAngle(90);
         m2->gotoTargetAngle(20);
      }
      if (cell == 4)
      {
-        m1->gotoTargetAngle(95);
-        m3->gotoTargetAngle(0);
-        m2->gotoTargetAngle(70);
+        m1->gotoTargetAngle(80);
+        m3->gotoTargetAngle(-15);
+        m2->gotoTargetAngle(75);
      }
      if (cell == 5)
      {
@@ -121,7 +125,7 @@ void loop(){
      }     
      if (cell == 6)
      {
-        m1->gotoTargetAngle(90);
+        m1->gotoTargetAngle(85);
         m3->gotoTargetAngle(90);
         m2->gotoTargetAngle(20);
      } 
@@ -129,32 +133,37 @@ void loop(){
      {
         m1->gotoTargetAngle(65);
         m3->gotoTargetAngle(-20);
-        m2->gotoTargetAngle(90);
+        m2->gotoTargetAngle(80);
+        m1->gotoTargetAngle(60);
      }
      if (cell == 8)
      {
         m1->gotoTargetAngle(70);
         m3->gotoTargetAngle(15);
         m2->gotoTargetAngle(60);
+        m1->gotoTargetAngle(60);
      }
      if (cell == 9)
      {
         m1->gotoTargetAngle(75);
         m3->gotoTargetAngle(90);
         m2->gotoTargetAngle(20);
-     }          
-     if (cell >= 0 && cell < 10)
-     {
-      GoHome();
-     }
+        m1->gotoTargetAngle(70);
+     } 
+     GoHome();     
     }
   } 
 }
 
 void GoHome()
 {
+  m2->gotoTargetAngle(90);
   m3->gotoTargetAngle(90);
   m1->gotoTargetAngle(90);
-  m2->gotoTargetAngle(90);
-  m4->gotoTargetAngle(90);  
+  m4->gotoTargetAngle(0);  
+}
+void StartFromHome()
+{
+  m4->gotoTargetAngle(90);
+  m4->gotoTargetAngle(0);
 }

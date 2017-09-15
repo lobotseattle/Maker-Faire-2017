@@ -54,28 +54,28 @@ void initializeMotors()
 { 
   m1 = new ArmMotor (AFMS.getMotor(m1Num),m1PotPin);
   m1->setSpeed(motorSpeed);
-  m1->calibratePotentiometer(543,90,475,70) ;
+  m1->calibratePotentiometer(594,90,491,68) ;
   m1->setMinAngle(60);
   m1->setMaxAngle(120);
   m1->printObject();
 
   m2 = new ArmMotor (AFMS.getMotor(m2Num), m2PotPin);
   m2->setSpeed(motorSpeed);
-  m2->calibratePotentiometer(1,0,550,90) ;
+  m2->calibratePotentiometer(449,0,291,90) ;
   m2->setMinAngle(-30);
   m2->setMaxAngle(120);
   m2->printObject();
 
   m3 = new ArmMotor (AFMS.getMotor(m3Num), m3PotPin);
   m3->setSpeed(motorSpeed);
-  m3->calibratePotentiometer(88,0,480,90) ;
+  m3->calibratePotentiometer(29,0,426,90) ;
   m3->setMinAngle(-15);
   m3->setMaxAngle(150);
   m3->printObject();
 
   m4 = new ArmMotor (AFMS.getMotor(m4Num), m4PotPin);
   m4->setSpeed(50);
-  m4->calibratePotentiometer(9,0,30,90) ;
+  m4->calibratePotentiometer(0,0,24,90) ;
   m4->setMinAngle(10);
   m4->setMaxAngle(80);
   m4->printObject();
@@ -112,63 +112,49 @@ void loop()
         m3->gotoTargetAngle(degree);
         m4->gotoTargetAngle(degree);  
      }
-      if (motorStr.compareTo("square 1") == 0 )
-     {
-        m1->gotoTargetAngle(117);
-        m3->gotoTargetAngle(-15);
-        m2->gotoTargetAngle(80);
-     }
-     if (motorStr.compareTo("square 2") == 0 )
-     {
-        m1->gotoTargetAngle(115);
-        m3->gotoTargetAngle(15);
-        m2->gotoTargetAngle(60);
-     }
-     if (motorStr.compareTo("square 3") == 0 )
-     {
-        m1->gotoTargetAngle(110);
-        m3->gotoTargetAngle(90);
-        m2->gotoTargetAngle(20);
-     }
-     if (motorStr.compareTo("square 4") == 0 )
-     {
-        m1->gotoTargetAngle(95);
-        m3->gotoTargetAngle(0);
-        m2->gotoTargetAngle(70);
-     }
-     if (motorStr.compareTo("square 5") == 0 )
-     {
-        m1->gotoTargetAngle(90);
-        m3->gotoTargetAngle(15);
-        m2->gotoTargetAngle(60);
-     }
-     if (motorStr.compareTo("square 6") == 0 )
-     {
-        m1->gotoTargetAngle(90);
-        m3->gotoTargetAngle(90);
-        m2->gotoTargetAngle(20);
-     }
-     if (motorStr.compareTo("square 7") == 0 )
-     {
-        m1->gotoTargetAngle(65);
-        m3->gotoTargetAngle(-20);
-        m2->gotoTargetAngle(90);
-     }
-     if (motorStr.compareTo("square 8") == 0 )
-     {
-        m1->gotoTargetAngle(70);
-        m3->gotoTargetAngle(15);
-        m2->gotoTargetAngle(60);
-     }
-     if (motorStr.compareTo("square 9") == 0 )
-     {
-        m1->gotoTargetAngle(75);
-        m3->gotoTargetAngle(90);
-        m2->gotoTargetAngle(20);
-     }
 
-
-
+//    if (motorStr.compareTo("beaker1")==0)
+//     { 
+//        m1->gotoTargetAngle(120);
+//        m2->gotoTargetAngle(45);
+//        m3->gotoTargetAngle(35);  
+//        m4->gotoTargetAngle(40);
+//        m4->gotoTargetAngle(60);
+//        m3->gotoTargetAngle(90);  
+//     }
+//
+//    
+//    if (motorStr.compareTo("vial1")==0)
+//     { 
+//        //m1->gotoTargetAngle(67);
+//        m2->gotoTargetAngle(45);
+//        m3->gotoTargetAngle(35);  
+//        m4->gotoTargetAngle(40);
+//        delay(1000);
+//        m4->gotoTargetAngle(60);
+//        m3->gotoTargetAngle(90);
+//     }
+//    if (motorStr.compareTo("vial2")==0)
+//     { 
+//       // m1->gotoTargetAngle(70);
+//        m2->gotoTargetAngle(110);
+//        m3->gotoTargetAngle(0);  
+//        m4->gotoTargetAngle(40);
+//        delay(500);
+//        m4->gotoTargetAngle(60);
+//        m3->gotoTargetAngle(90);
+//      }
+       if (motorStr.compareTo("test")==0)
+         { 
+            m1->gotoTargetAngle(90);
+            m2->gotoTargetAngle(90);
+            m3->gotoTargetAngle(90);
+            m2->gotoTargetAngle(0);
+            m3->gotoTargetAngle(180);
+            m3->gotoTargetAngle(90);
+            m2->gotoTargetAngle(90);
+            m4->gotoTargetAngle(degree);  
+         }
 //          
      }
    }
