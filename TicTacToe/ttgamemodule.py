@@ -390,6 +390,10 @@ def isThereACenterMove(ticTacToeBoard):
 #Main program strats here
 ticTacToeBoard = []
 gameLevel = "H"
+TIE=0
+CWIN=1
+UWIN=2
+
 
 def initTicTacToeGame(gameDifficultyLevel):
     global ticTacToeBoard
@@ -402,13 +406,19 @@ def initTicTacToeGame(gameDifficultyLevel):
 def userMove(move):
     global ticTacToeBoard
     global gameLevel
+    global CWIN
+    global UWIN
+    global TIE
     computerMove = -1
     if (move >=0 and move <= 8):
         ticTacToeBoard[move].takenByUser()
         winStat = didUserWin(ticTacToeBoard)
         if not winStat:
             computerMove, winStat = computerPlayAI(ticTacToeBoard, gameLevel)
+            if (winStat):
+                result=CWIN
         else:
             declareWinner(ticTacToeBoard,"User")
+            result=UWIN
 
-    return computerMove, winStat
+    return computerMove, winStat, result

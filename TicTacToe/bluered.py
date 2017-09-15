@@ -5,7 +5,6 @@ from collections import OrderedDict, namedtuple
 from operator import attrgetter
 import winsound
 import time
-import io
 import sys
 import serial
 
@@ -591,6 +590,13 @@ def makeGameEndSound():
         Dur = 250 # Set Duration To 1000 ms == 1 second
         winsound.Beep(Freq,Dur) 
 
+def makeComputerWinSound():
+    winsound.PlaySound("c_win.wav".winsound.SND_FILENAME)
+
+def makeUserWinSound():
+    winsound.PlaySound("u_win.wav".winsound.SND_FILENAME)
+
+
 
 def makeInValidMoveSound():
     for i in range(1,3):
@@ -645,11 +651,16 @@ def gameStart():
             playerMove = gridChanges[0].index
             print(playerMove)
             makeValidMoveSound()
-            computerMove, gameStatus = sendPlayerMoveToGame(playerMove-1)
+            computerMove, gameStatus, gameResult = sendPlayerMoveToGame(playerMove-1)
             if (computerMove != -1):
                 makeRobotMove(computerMove+1)
                 if (gameStatus):
-                    makeGameEndSound()
+                    if (gameResult==gm.CWIN):
+                        makeGameEndSound()
+                    if (gameResult==gm.UWIN):
+                        makeUserWinSound()
+                    if (gameResult==gm.TIE):
+                        makeGameEndSound()
                     gameInProgress=False
                     break
         if (validGrid is False and gridChanged is True):
