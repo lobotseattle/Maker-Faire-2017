@@ -591,10 +591,10 @@ def makeGameEndSound():
         winsound.Beep(Freq,Dur) 
 
 def makeComputerWinSound():
-    winsound.PlaySound("c_win.wav".winsound.SND_FILENAME)
+    winsound.PlaySound("c_win.wav", winsound.SND_FILENAME)
 
 def makeUserWinSound():
-    winsound.PlaySound("u_win.wav".winsound.SND_FILENAME)
+    winsound.PlaySound("u_win.wav", winsound.SND_FILENAME)
 
 
 
@@ -654,13 +654,17 @@ def gameStart():
             computerMove, gameStatus, gameResult = sendPlayerMoveToGame(playerMove-1)
             if (computerMove != -1):
                 makeRobotMove(computerMove+1)
+                print(gameResult)
                 if (gameStatus):
+                    print(gameResult)
                     if (gameResult==gm.CWIN):
-                        makeGameEndSound()
+                        print("trying computer win")
+                        makeComputerWinSound()
                     if (gameResult==gm.UWIN):
+                        print("trying user win")
                         makeUserWinSound()
                     if (gameResult==gm.TIE):
-                        makeGameEndSound()
+                        makesGameEndSound()
                     gameInProgress=False
                     break
         if (validGrid is False and gridChanged is True):
@@ -687,7 +691,6 @@ def gameStart():
                         ]
                     )
                 )
-
 
         # newx,newy = croppedImage.shape[1]*1.5,croppedImage.shape[0]*1.5 #new size (w,h)
         # newx = int(newx)

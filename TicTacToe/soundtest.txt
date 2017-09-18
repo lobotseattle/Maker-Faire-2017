@@ -1,0 +1,11 @@
+import winsound
+winsound.PlaySound("c_win.wav", winsound.SND_FILENAME)
+winsound.PlaySound("u_win.wav", winsound.SND_FILENAME)
+winsound.PlaySound("move1.m4a", winsound.SND_FILENAME)
+winsound.PlaySound("move2.m4a", winsound.SND_FILENAME)
+winsound.PlaySound("move3.m4a", winsound.SND_FILENAME)
+winsound.PlaySound("move4.m4a", winsound.SND_FILENAME)
+
+
+
+

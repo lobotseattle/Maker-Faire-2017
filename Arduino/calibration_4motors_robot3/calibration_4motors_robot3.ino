@@ -61,21 +61,21 @@ void initializeMotors()
 
   m2 = new ArmMotor (AFMS.getMotor(m2Num), m2PotPin);
   m2->setSpeed(motorSpeed);
-  m2->calibratePotentiometer(449,0,291,90) ;
+  m2->calibratePotentiometer(136,0,491,90) ;
   m2->setMinAngle(-30);
   m2->setMaxAngle(120);
   m2->printObject();
 
   m3 = new ArmMotor (AFMS.getMotor(m3Num), m3PotPin);
   m3->setSpeed(motorSpeed);
-  m3->calibratePotentiometer(29,0,426,90) ;
+  m3->calibratePotentiometer(171,0,505,90) ;
   m3->setMinAngle(-15);
   m3->setMaxAngle(150);
   m3->printObject();
 
   m4 = new ArmMotor (AFMS.getMotor(m4Num), m4PotPin);
   m4->setSpeed(50);
-  m4->calibratePotentiometer(0,0,24,90) ;
+  m4->calibratePotentiometer(10,16,135,80) ;
   m4->setMinAngle(10);
   m4->setMaxAngle(80);
   m4->printObject();

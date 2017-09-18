@@ -410,6 +410,8 @@ def userMove(move):
     global UWIN
     global TIE
     computerMove = -1
+    result = TIE
+
     if (move >=0 and move <= 8):
         ticTacToeBoard[move].takenByUser()
         winStat = didUserWin(ticTacToeBoard)
