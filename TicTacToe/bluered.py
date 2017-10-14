@@ -14,13 +14,16 @@ import ttgamemodule as gm
 import numpy as np
 
 import cv2
-
+  
 # define the list of boundaries
+#initialize webCam to None
 webcam = None
 
+#Declare the x and y axes of webcam view
 xRes = int(640)
 yRes = int(480)
 
+#Declare the area of the board, cell and chips
 maxTileArea = 6000*(xRes/640)*(yRes/480)
 minTileArea = 3000*(xRes/640)*(yRes/480)
 maxChipArea = 600*(xRes/640)*(yRes/480)
@@ -29,6 +32,8 @@ minChipArea = 250*(xRes/640)*(yRes/480)
 # greenHSVRanges = [
 #     ([50, 200, 200], [70, 255, 255])    
 # ]
+
+# Declare the RGB range for the colors used in the tctactoebaord and chips
 greenHSVRanges = [
     ([50, 100, 70], [60, 190, 100])    
 ]
@@ -80,7 +85,7 @@ coordinateMap = OrderedDict(
     }
 )
 
-
+# The TicTacToeCell class 
 class ticTacToeCell:
     UNKNOWN = "U"
     OCCUPIED = "Occupied"
@@ -92,14 +97,17 @@ class ticTacToeCell:
     cellOccupied = UNKNOWN
     cellOwner = UNKNOWN
 
+    #Initialization
     def __init__(self):
         pass
     
+    #Prints out the following information for the cell: Index, whether the cell is occupied, and who has occupied
     def print(self):
         tu1 = (self.index, self.cellOccupied, self.cellOwner)
         printText = "{0:d} {1:s} {2:s}".format(*tu1)
         print(printText)
     
+    #Prints the cellowner in a tabular form (cellIndex: cellOwner)
     def printTabular(self):
         val = 0
         if (self.cellOccupied==self.OCCUPIED):
@@ -108,6 +116,7 @@ class ticTacToeCell:
             val=self.EMPTY
         print(self.index,":",val,"\t", end="") 
 
+    #Creates a copy of the cell
     def copy(self):
         c = ticTacToeCell()
         c.index = self.index
@@ -115,7 +124,7 @@ class ticTacToeCell:
         c.cellOwner = self.cellOwner
         return c
 
-
+#prints the tictactoe grid output
 def printTicTacToeGrid(tttGrid,context):
     cellCount = len(tttGrid) 
     print(cellCount,context)    
@@ -124,6 +133,7 @@ def printTicTacToeGrid(tttGrid,context):
         i.printTabular()
     print()
 
+#creates a copy of the tictactoe grid internally
 def getTicTacToeGridCopy(tttGrid):
     grid = []
     cellCount = len(tttGrid)     
@@ -132,6 +142,7 @@ def getTicTacToeGridCopy(tttGrid):
         grid.append(c)
     return grid
 
+#initializes the following values
 class gridContoursClass:
     TILE = "Tile"
     CHIP = "Chip"
@@ -154,13 +165,14 @@ class gridContoursClass:
         printText = "{0:d} {1:d} {2:d} {3:d} {4:d}".format(*tu1)
         print(printText)
 
-
+# returns the videocapture of what the webcam is seeing
 def getWebCam():
     global webcam
     if (webcam is None):
         webcam = cv2.VideoCapture(1)
     return webcam
 
+#Gets the image seen by the webcam
 def getCameraImage():
     global webcam
     rval = False
@@ -188,10 +200,10 @@ def getCameraImage():
     
     return frame
 
-
 def getImage(fName):
     img = cv2.imread(fName, cv2.IMREAD_COLOR)
 
+#print error if image is not found
     if img is None:
         print ("File not found", " ", fName)
     return img
@@ -205,6 +217,7 @@ def getHSVImage(image):
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     return hsv        
 
+#Displays the border co-ordinates
 def displayBorderCoordinates(img, cell):
     defaultColor = (0,255,0)
     textColor = (255,255,255)
@@ -230,6 +243,7 @@ def displayBorderCoordinates(img, cell):
     # cv2.putText ( img, contourValues2, origin2, cv2.FONT_HERSHEY_PLAIN, 1 , textColor )
         
 
+#Mark borders of the cells in the image
 def markBorders(img, cells):
 
     defaultColor = (0,255,0)
@@ -253,11 +267,13 @@ def rotateImage(image, angle):
     rot_mat = cv2.getRotationMatrix2D(center,angle,yRes/xRes)
     return cv2.warpAffine(image, rot_mat, image.shape[0:2],flags=cv2.INTER_LINEAR)
 
+# sort the contours based on the cell's co-ordinates
 def sortCellBorders(cells):
     # sort the contours based on left to right,top to bottom,where x is at position0, y at position 1
     sortedcells=sorted(cells, key=attrgetter('x', 'y'),reverse=True)
     return sortedcells
 
+#Gets the borders of the cell based on the contours
 def getCellBorders(contours):
     cells = []
     noOfItems=len(contours)
@@ -285,6 +301,7 @@ def getCellBorders(contours):
                 index = index + 1
     return cells
 
+#Gets the borders of the cip based on the contours
 def getChipBorders(contours):
     cells = []
     noOfItems=len(contours)
@@ -425,6 +442,7 @@ def getTTTFrame(cells):
         h = capToBoundaries(h,0,yRes)
     return x,y,w,h
 
+#Crop the image to the border so anything outside the border is ignored
 def cropImageToBorder(img):
     x,y,w,h = getTTTFrameFromImg(img)
     if (x >= 0 and y >= 0 and w > 0 and h > 0):
@@ -442,6 +460,7 @@ def cropAndCenter(img):
     cells = getSortedCellBorders(croppedImage)
     return croppedImage, cells
 
+#Detect the players chips on the cells
 def detectPlayerChips(img, cells):
     global playerImgForShow
     hsv = getHSVImage(img)
@@ -506,6 +525,7 @@ def getTicTacToeGrid(playerCells, tileCells):
 
     return grid
 
+#Get the sum of cell indices that are occupied.
 def getSum(grid):
     s=0
     for i in grid:
@@ -513,6 +533,7 @@ def getSum(grid):
             s=s+i.index
     return s
 
+#Detects if the changes in the grid are valid. This is used to detect more moves than what is allowed
 def identifyGridChanges(oldGrid, newGrid):
     gridChanged = False
     gridChangesAreValid = False
@@ -562,6 +583,7 @@ def identifyGridChanges(oldGrid, newGrid):
         gridChanges=None    
     return gridChanged, gridChangesAreValid, gridChanges
 
+# Accept or reject the grid based on whether the user has made more changes(moves) than allowed.
 def acceptOrRejectNewGrid (oldGrid, newGrid):
     validGrid = False
     #Look for user move
@@ -579,34 +601,39 @@ def acceptOrRejectNewGrid (oldGrid, newGrid):
 
     return validGrid, gridChanged, gridChanges
 
+#Make a sound to indicate a validmove
 def makeValidMoveSound():
     Freq = 1000 # Set Frequency To 2500 Hertz
     Dur = 500 # Set Duration To 1000 ms == 1 second
     winsound.Beep(Freq,Dur)
 
+#Make a sound to indicate the game ended
 def makeGameEndSound():
     for i in range(1,10):
         Freq = 1500 # Set Frequency To 2500 Hertz
         Dur = 250 # Set Duration To 1000 ms == 1 second
         winsound.Beep(Freq,Dur) 
 
+#Make a sound to indicate the computer won
 def makeComputerWinSound():
     winsound.PlaySound("c_win.wav", winsound.SND_FILENAME)
 
+#Make a sound to indicate the user won
 def makeUserWinSound():
     winsound.PlaySound("u_win.wav", winsound.SND_FILENAME)
 
-
-
+#Make a sound to indicate the move is invalid
 def makeInValidMoveSound():
     for i in range(1,3):
         Freq = 500 # Set Frequency To 2500 Hertz
         Dur = 250 # Set Duration To 1000 ms == 1 second
         winsound.Beep(Freq,Dur)    
 
+#Send the player's move the Game module
 def sendPlayerMoveToGame(move):
     return gm.userMove(move)
 
+#Make the robot arm move to the target cell by sending the computer move to the serial port where the robot arm is listening to
 def makeRobotMove(move):
     global ser
     ret = 1
@@ -626,6 +653,7 @@ def makeRobotMove(move):
         time.sleep(5)
     return ret
 
+#Start the game
 def gameStart():
     global ticTacToeGrid
     global gameInProgress
@@ -703,7 +731,7 @@ def gameStart():
         if key == 27:
             break
 
-
+#List the connected Com ports
 def listsComPorts():
     ports = serial.tools.list_ports.comports()
     connected = []
@@ -711,6 +739,7 @@ def listsComPorts():
         connected.append(element.device)
     print("Connected COM ports: " + str(connected))
 
+#Initialize the serial port
 def initializeSerialport():
     global ser
     try:
@@ -729,10 +758,12 @@ def initializeSerialport():
         if (not ser.isOpen()):
             ser.open()
 
+#Close the serial port
 def closeSerialPort():
     global ser
     ser.close()
 
+#The main method
 def main():
     global ticTacToeGrid
     global gameInProgress

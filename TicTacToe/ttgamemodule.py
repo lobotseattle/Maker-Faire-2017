@@ -42,6 +42,7 @@ class cellState:
         self.occupied=True
         self.player="Computer"
 
+#Return a copy of the board
 def getBoardCopy(ticTacToeBoard):
     ticTacToeBoardCopy=[]
     for t in ticTacToeBoard:
@@ -49,9 +50,11 @@ def getBoardCopy(ticTacToeBoard):
         ticTacToeBoardCopy.append(cell)
     return ticTacToeBoardCopy
 
+#Change the button's color
 def changeButtonColor(b,color):
     b.configure(bg=color)
 
+#Callbaack method to be called when cell 1 is taken by the user
 def callback1():
     global ticTacToeBoard
     global gameLevel
@@ -62,6 +65,7 @@ def callback1():
     else:
         declareWinner(ticTacToeBoard,"User")
 
+#Callbaack method to be called when cell 2 is taken by the user
 def callback2():
     global ticTacToeBoard
     ticTacToeBoard[1].takenByUser()
@@ -70,7 +74,7 @@ def callback2():
     else:
         declareWinner(ticTacToeBoard,"User")
 
-
+#Callbaack method to be called when cell 3 is taken by the user
 def callback3():
     global ticTacToeBoard
     ticTacToeBoard[2].takenByUser()
@@ -79,7 +83,7 @@ def callback3():
     else:
         declareWinner(ticTacToeBoard,"User")
 
-
+#Callbaack method to be called when cell 4 is taken by the user
 def callback4():
     global ticTacToeBoard
     ticTacToeBoard[3].takenByUser()
@@ -88,6 +92,7 @@ def callback4():
     else:
         declareWinner(ticTacToeBoard,"User")
 
+#Callbaack method to be called when cell 5 is taken by the user
 def callback5():
     global ticTacToeBoard
     ticTacToeBoard[4].takenByUser()
@@ -97,6 +102,7 @@ def callback5():
         declareWinner(ticTacToeBoard,"User")
 
 
+#Callbaack method to be called when cell 6 is taken by the user
 def callback6():
     global ticTacToeBoard
     ticTacToeBoard[5].takenByUser()
@@ -105,7 +111,7 @@ def callback6():
     else:
         declareWinner(ticTacToeBoard,"User")
 
-
+#Callbaack method to be called when cell 7 is taken by the user
 def callback7():
     global ticTacToeBoard
     ticTacToeBoard[6].takenByUser()
@@ -114,7 +120,7 @@ def callback7():
     else:
         declareWinner(ticTacToeBoard,"User")
 
-
+#Callbaack method to be called when cell 8 is taken by the user
 def callback8():
     global ticTacToeBoard
     ticTacToeBoard[7].takenByUser()
@@ -123,6 +129,7 @@ def callback8():
     else:
         declareWinner(ticTacToeBoard,"User")
 
+#Callbaack method to be called when cell 9 is taken by the user
 def callback9():
     global ticTacToeBoard
     ticTacToeBoard[8].takenByUser()
@@ -139,7 +146,7 @@ def isBoardFull(ticTacToeBoard):
             return False
     return True
 
-
+#Get an unoccupied cell by checking the cells in a random order
 def getUnoccupiedCell(ticTacToeBoard):
     if not isBoardFull(ticTacToeBoard):
         while (True):
@@ -150,6 +157,7 @@ def getUnoccupiedCell(ticTacToeBoard):
     else:
         return -1
 
+#Get the list of unoccupied cells on the board
 def getUnoccupiedCells(ticTacToeBoard):
     emptyCells=[]
     if not isBoardFull(ticTacToeBoard):
@@ -158,6 +166,7 @@ def getUnoccupiedCells(ticTacToeBoard):
                 emptyCells.append(t)
     return emptyCells
 
+#Pick the next move for the computer and mark it on the board
 def computerPlay(ticTacToeBoard):
     cell = getUnoccupiedCell(ticTacToeBoard)
     if cell > -1:
@@ -169,6 +178,7 @@ def computerPlay(ticTacToeBoard):
         declareWinner(ticTacToeBoard,"Both user and computer")
     return cell
 
+#Make a winning move for the computer (if possible)
 def makeAWinningMoveIfPossible(ticTacToeBoard):
     winningMove=isThereAWinningMove(ticTacToeBoard)
 
@@ -178,6 +188,7 @@ def makeAWinningMoveIfPossible(ticTacToeBoard):
         cell.takenByComputer()
     return winningMove
 
+#Make a move for the computer that can block the user from winning (if possible)
 def makeBlockingMoveIfPossible(ticTacToeBoard):
     blockingMove=isThereABlockingMove(ticTacToeBoard)
 
@@ -187,6 +198,7 @@ def makeBlockingMoveIfPossible(ticTacToeBoard):
         cell.takenByComputer()
     return blockingMove
 
+#Make a corner move for the computer (if any corner is unoccupied)
 def makeCornerMoveIfPossible(ticTacToeBoard):
     cornerMove=getACornerMove(ticTacToeBoard)
     if cornerMove != -1:
@@ -194,7 +206,7 @@ def makeCornerMoveIfPossible(ticTacToeBoard):
         cell.takenByComputer()
     return cornerMove
 
-
+#Make a center move for the computer (if the center is unoccupied)
 def makeCenterMoveIfPossible(ticTacToeBoard):
     centerMove=isThereACenterMove(ticTacToeBoard)
     if centerMove != -1:
@@ -202,6 +214,7 @@ def makeCenterMoveIfPossible(ticTacToeBoard):
         cell.takenByComputer()
     return centerMove
 
+#Play the computer move using some artificial intelligence
 def computerPlayAI(ticTacToeBoard, gameLevel):
     move = makeAWinningMoveIfPossible(ticTacToeBoard)
 
@@ -222,13 +235,14 @@ def computerPlayAI(ticTacToeBoard, gameLevel):
     
     return move, winStat
 
+#Check if the list of cells is occupied by the player
 def columnCheck(columnList, player):
     cell1 = columnList[0]
     cell2 = columnList[1]
     cell3 = columnList[2]
     return (cell1.occupied and cell2.occupied and cell3.occupied and cell1.player==player and cell2.player==player and cell3.player==player)
 
-
+#Print the tic tac toe grid
 def printGrid(ticTacToeBoard):
     print ("\n")
     for t in ticTacToeBoard:
@@ -247,7 +261,7 @@ def printGrid(ticTacToeBoard):
 #Diagonal2
 #Make 8 checks 1 at a time
 
-
+#Returns a flag that indicates if the either the user or the computer won
 def didEitherUserOrComputerWin(ticTacToeBoard,player):
     leftColCheck=columnCheck(leftColumn(ticTacToeBoard),player)
     rightColCheck=columnCheck(rightColumn(ticTacToeBoard),player)
@@ -259,59 +273,74 @@ def didEitherUserOrComputerWin(ticTacToeBoard,player):
     diagonal2Check=columnCheck(diagonal2(ticTacToeBoard),player)
     return(leftColCheck or rightColCheck or middleColCheck or topRowCheck or middleRowCheck or bottomRowCheck or diagonal1Check or diagonal2Check)
 
+#Returns a flag that indicates if the user won
 def didUserWin(ticTacToeBoard):
     return didEitherUserOrComputerWin(ticTacToeBoard,"User")
 
+#Returns a flag that indicates if the computer won
 def didComputerWin(ticTacToeBoard):
     return didEitherUserOrComputerWin(ticTacToeBoard,"Computer")
 
+#Declare the winner (the player - User or c\Computer)
 def declareWinner(ticTacToeBoard,player):
     print(player," wins!!!!!!!!!!!")
 
+#Return the list of cells on the left column
 def leftColumn(ticTacToeBoard):
     leftColumn=[ticTacToeBoard[0],ticTacToeBoard[3],ticTacToeBoard[6]]
     return leftColumn
 
+#Return the list of cells on the middle column
 def middleColumn(ticTacToeBoard):
     rightColumn=[ticTacToeBoard[1],ticTacToeBoard[4],ticTacToeBoard[7]]
     return rightColumn
 
+#Return the list of cells on the right column
 def rightColumn(ticTacToeBoard):
     middleColumn=[ticTacToeBoard[2],ticTacToeBoard[5],ticTacToeBoard[8]]
     return middleColumn
 
+#Return the list of cells on the bottom row
 def bottomRow(ticTacToeBoard):
     bottomRow=[ticTacToeBoard[6],ticTacToeBoard[7],ticTacToeBoard[8]]
     return bottomRow
 
+#Return the list of cells on the top row
 def topRow(ticTacToeBoard):
     topRow=[ticTacToeBoard[0],ticTacToeBoard[1],ticTacToeBoard[2]]
     return topRow
 
+#Return the list of cells on the middle row
 def middleRow(ticTacToeBoard):
     middleRow=[ticTacToeBoard[3],ticTacToeBoard[4],ticTacToeBoard[5]]
     return middleRow
 
+#Return the list of cells on diagonal 1
 def diagonal1(ticTacToeBoard):
     diagonal1=[ticTacToeBoard[0],ticTacToeBoard[4],ticTacToeBoard[8]]
     return diagonal1
 
+#Return the list of cells on diagonal 2
 def diagonal2(ticTacToeBoard):
     diagonal2=[ticTacToeBoard[2],ticTacToeBoard[4],ticTacToeBoard[6]]
     return diagonal2
 
+#Return the list of cells on the corners
 def corners(ticTacToeBoard):
     corners=[ticTacToeBoard[0], ticTacToeBoard[2],ticTacToeBoard[6],ticTacToeBoard[8]]
     return corners
 
+#Return the list of cells on sides
 def sides(ticTacToeBoard):
     sides=[ticTacToeBoard[1],ticTacToeBoard[3],ticTacToeBoard[5],ticTacToeBoard[7]]
     return sides
 
+#Return the center cell
 def center(ticTacToeBoard):
     center=ticTacToeBoard[4]
     return center
 
+#Check if there exists a move for the computer so it can win
 def isThereAWinningMove(ticTacToeBoard):
     returncell=-1
     unoccupiedCells=getUnoccupiedCells(ticTacToeBoard)
@@ -336,6 +365,7 @@ def isThereAWinningMove(ticTacToeBoard):
 
     return returncell
 
+#Check if there exists a move for the computer that can block the user form winning
 def isThereABlockingMove(ticTacToeBoard):
     returncell=-1
     unoccupiedCells=getUnoccupiedCells(ticTacToeBoard)
@@ -358,7 +388,7 @@ def isThereABlockingMove(ticTacToeBoard):
 
     return returncell
 
-
+#Get a corner move if possible (by checking if there exists an occupied corner
 def getACornerMove(ticTacToeBoard):
     returnCell=-1
     cornerCells=corners(ticTacToeBoard)
@@ -377,7 +407,7 @@ def getACornerMove(ticTacToeBoard):
 
     return returnCell
 
-
+#Check if the the center move is possible (by checking if the center cell is unoccupied)
 def isThereACenterMove(ticTacToeBoard):
     returnCell=-1
     centerCell=center(ticTacToeBoard)
@@ -394,7 +424,7 @@ TIE=0
 CWIN=1
 UWIN=2
 
-
+#Initialize the tic tac toe game board and mark the desired difficulty level
 def initTicTacToeGame(gameDifficultyLevel):
     global ticTacToeBoard
     global gameLevel
@@ -403,6 +433,7 @@ def initTicTacToeGame(gameDifficultyLevel):
         cell = cellState(i,False,"Nobody")
         ticTacToeBoard.append((cell))
 
+#Mark the user move on the board and check the win status
 def userMove(move):
     global ticTacToeBoard
     global gameLevel

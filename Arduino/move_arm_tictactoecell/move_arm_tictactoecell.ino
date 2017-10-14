@@ -13,23 +13,23 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 
 
 
-//base motor + its pot
+//initialize base motor + its pot
 int m1Num = 1;
 int m1PotPin = 1;
 
-//shoulder motor + its pot
+//initialize shoulder motor + its pot
 int m2Num = 2;
 int m2PotPin = 2;
 
-//shoulder motor + its pot
+//initialize shoulder motor + its pot
 int m3Num = 3;
 int m3PotPin = 3;
 
-//the claw
+//initialize the claw
 int m4Num = 4;
 int m4PotPin = 0;
 
-//the default speed for all the motors
+//set the default speed for all the motors
 int motorSpeed = 125;
    
 int val = 0; 
@@ -79,7 +79,6 @@ void setup()
 }
 
 // initialize all the motors
-// initialize all the motors
 void initializeMotors()
 { 
   m1 = new ArmMotor (AFMS.getMotor(m1Num),m1PotPin);
@@ -116,12 +115,14 @@ void loop(){
   {
   if (Serial.available() > 0 )
   {
-     //String cell = Serial.readString();
+    //assigning input from serial port to variable cell
      int cell = Serial.parseInt();
 
      
      StartFromHome();
-     
+
+     //setting motor positions for each cell
+     //compares input cell to cell numbers 1-9
      if (cell == 1)
      {
         m1->gotoTargetAngle(117);
@@ -183,12 +184,15 @@ void loop(){
         m2->gotoTargetAngle(0);
         
      } 
+     //drops piece
      dropObject();
+     //going to home position after going to cell
      GoHome();     
     }
   } 
 }
 
+//motor positions for home 
 void GoHome()
 {
   m2->gotoTargetAngle(90);
